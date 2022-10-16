@@ -3,6 +3,8 @@
 * [Sarrera](#Sarrera)
 * [Erabilitko teknologia](#Teknologia)
 * [Nola hasieratu](#Hasieratu)
+* [Datu basea inportatu](#Datu basea inportatu)
+* [Web-a ireki](#Web-a ireki)
 * [Funtzionalitateak](#Funtzionalitateak)
 * [Taldekideen informazioa](#Taldekideak)
 
