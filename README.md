@@ -3,8 +3,8 @@
 * [Sarrera](#Sarrera)
 * [Erabilitko teknologia](#Teknologia)
 * [Nola hasieratu](#Hasieratu)
-* [Datu basea inportatu](#Datu basea inportatu)
-* [Web-a ireki](#Web-a ireki)
+* [Datu basea inportatu](#Inportatu)
+* [Web-a ireki](#Sartu)
 * [Funtzionalitateak](#Funtzionalitateak)
 * [Taldekideen informazioa](#Taldekideak)
 
@@ -28,10 +28,10 @@ $ docker build -t="web" .
 $ docker-compose up
 ```
 
-## Datu basea inportatu
+## Inportatu
 Aurreko komandoak exekutatu ondoren, nabigatzailean localhost:8890 idatzi behar da phpmyadmin-era heltzeko. Hor "Importar" botoia sakatu. "Examinar..." botoia sakatu, eta lehen klonatutako ISSKS karpetan dagoen database.sql fitxategia aukeratu. Azkenik beheko aldean dagoen "Importar" botoia sakatu.
 
-## Web-a ireki
+## Sartu
 Nabigatzailean localhost:81 jartzean, web orria irekiko da
 
 ## Funtzionalitateak
