@@ -1,5 +1,4 @@
 <?php
-
 function emptyInputSignup($izenAbizen, $NAN, $tlf, $JaiotzeData, $email, $pasahitza, $RPasahitza){
     $result = false;
     if(empty($izenAbizen) || empty($NAN) || empty($tlf) || empty($JaiotzeData) || empty($email) || empty($pasahitza) || empty($RPasahitza)) {
@@ -93,9 +92,9 @@ function createUser($conn, $izena, $NAN, $telefonoa, $jaiodata, $email, $paswd){
         exit();
     }
 
-    //$hashedpaswd = password_hash($paswd, PASSWORD_DEFAULT);
+    $hashedpaswd = password_hash($paswd, PASSWORD_DEFAULT);
 
-    mysqli_stmt_bind_param($stmt, "ssisss", $izena, $NAN, $telefonoa, $jaiodata, $email, $paswd);
+    mysqli_stmt_bind_param($stmt, "ssisss", $izena, $NAN, $telefonoa, $jaiodata, $email, $hashedpaswd);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("location: ../signup.php?error=none");
@@ -114,6 +113,18 @@ function jokoaSartu($conn, $izena, $pegi, $info, $prezioa, $jData){
     header("location: ../jokoak.php?error=none");
 }
 
+function logSartu($conn, $id, $izena, $pasahitza, $errorea){
+    $sql = "INSERT INTO log (id, erabiltzailea, pasahitza, errorea) VALUES (?, ?, ?, ?);";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../jokoak.php?error=stmtfailed");
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "isss", $id, $izena, $pasahitza, $errorea);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
+
 function emptyInputLogIn($izenAbizen, $pasahitza){
     $result = false;
     if(empty($izenAbizen)){
@@ -124,6 +135,19 @@ function emptyInputLogIn($izenAbizen, $pasahitza){
         $result = true;
         header("location: ../index.php?error=emptypass");
         exit();
+    }
+    else{
+        $result = false;
+    }
+    return $result;
+}
+
+function emptyInputLogIn2($izenAbizen, $pasahitza){
+    $result = false;
+    if(empty($izenAbizen)){
+        $result = true;
+    } else if(empty($pasahitza)) {
+        $result = true;
     }
     else{
         $result = false;
@@ -155,6 +179,23 @@ function emptyDatuakAldatu($telefonoa, $email, $pasahitza){
     return $result;
 }
 
+function pasahitzaKonprobatu($conn, $izena, $pwd){
+    $uidExists = userExists($conn, $izena, $izena);
+    
+    if($uidExists === false){
+        header("location: ../index.php?error=wronguser");
+        exit();
+    }
+
+    $paswd = $uidExists["pasahitza"];
+    $checkPwd = password_verify($pwd, $paswd);
+    if($checkPwd === false){
+        return false;
+    }
+    if($checkPwd === true){
+        return true;
+    }
+}
 
 function loginUser($conn, $izena, $pasahitza) {
     $uidExists = userExists($conn, $izena, $izena);
@@ -165,12 +206,13 @@ function loginUser($conn, $izena, $pasahitza) {
     }
 
     $pwd = $uidExists["pasahitza"];
+    $checkPwd = password_verify($pasahitza, $pwd);
 
-    if(paswdMatch($pasahitza,$pwd)) {
+    if($checkPwd === false) {
         header("location: ../login.php?error=wrongpassword");
         exit();
     }
-    else if (!paswdMatch($pasahitza,$pwd)){
+    else if($checkPwd === true){
         session_start();
         $_SESSION["izenAbizen"] = $uidExists["izenAbizen"];
         $_SESSION["NAN"] = $uidExists["NAN"];
@@ -372,6 +414,24 @@ function jokoaDago($conn, $jIzena){
     }
 
     mysqli_stmt_close($stmt);
+}
+
+function getLogIndex($conn){
+    $sql = "SELECT MAX(id) FROM log";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt, $sql)){
+        header("location: ../index.php?error=jokoaezdago");
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    if($resultData === null){
+        return 1;
+    }
+    while ($row = $resultData->fetch_assoc()) {
+        return $row['MAX(id)']+1;
+    }
 }
 
 function jokoaNireZerrendaraGehitu($conn, $bIzena, $jIzena){

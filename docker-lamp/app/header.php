@@ -6,7 +6,7 @@
     <head>
         <title>PHP proba</title>
     </head>
-    <body>
+    <body> 
         <?php
             require_once 'Includes/dbh.inc.php';
             require_once 'Includes/functions.inc.php';

@@ -5,12 +5,30 @@ include_once 'header.php';
 <section class="profil-datuak">
     <h2>Jokoa gehitu</h2>
     <!--Hemen erabiltzaileari joku berri bat datu basean sartzeko aukera ematen diogu, parametro guztiak sartuz eta igoz -->
+    <?php
+    	if($_POST){
+    		$izenAbizen = isset($_POST['izenAbizen']) ? $_POST['izenAbizen'] : '';
+    		$pasahitza = isset($_POST['pasahitza']) ? $_POST['pasahitza'] : '';
+    		$csrf = isset($_POST['csrf']) ? $_POST['csrf'] : '';
+    		if(!empty($izenAbizen) && !empty($pasahitza) && !empty($csrf)){
+    			if($_SESSION['csrf'] === $csrf){
+    				echo "vas bien csrf";
+    				unset($_SESSION['csrf']);
+    			}else{
+    				echo "ha fallado el csrf";
+    			}
+    		}
+    	}
+    	$token = md5(uniqid(rand(), true));
+    	$_SESSION['csrf'] = $token;	
+    	?>
     <form action="Includes/jokoak.inc.php" method="post">
         Izena: <input type="text" id="jIzena" name="jIzena" placeholder="Izena sartu...">
         PEGI: <input type="text" id="pegi" name="pegi" placeholder="PEGI...">
         Deskripzioa: <input type="text" id="info" name="info" placeholder="Deskripzioa...">
         Prezioa: <input type="text" id="prezioa" name="prezioa" placeholder="Prezioa sartu...">
         Jaurtiketa-data: <input type="text" id="jData" name="jData" placeholder="Jaurtiketa-data...">
+        <input type="hidden" name="csrf" value="<?php echo $token; ?>">
         <button type="submit" name="jokoSartu">Jokoa sartu</button>
     </form>
     </div>
@@ -55,6 +73,7 @@ include_once 'header.php';
             Deskripzioa: <input type='text' id='info2' name='info2' placeholder='Deskripzioa...'><br>
             Prezioa: <input type='text' id='prezioa2' name='prezioa2' placeholder='Prezioa sartu...''><br>
             Jaurtiketa-data: <input type='text' id='jData2' name='jData2' placeholder='Jaurtiketa-data...'><br>
+            <input type='hidden' name='csrf' value='<?php echo $token; ?>'>
             <button type='submit' name='jokoAldatu'>Aldaketak gorde</button>
             </form>            </section>
             ";
@@ -62,7 +81,6 @@ include_once 'header.php';
             echo "</section>";
         }
         if(isset($_POST["jokoAldatu"])){
-            //echo $_SESSION["jokoIzena"];
             jokoaAldatu($conn, $_SESSION["jokoIzena"], $_POST["pegi2"], $_POST["info2"], $_POST["prezioa2"], $_POST["jData2"]);
         }
 ?>
@@ -72,6 +90,7 @@ include_once 'header.php';
 
     <form action="" method="post">
         Sartu aldatu nahi duzun jokoaren izena:<input type="text" name="jokoIzena" placeholder="...">
+        <input type='hidden' name='csrf' value='<?php echo $token; ?>'>
         <button type="submit" name="aldatu">Jokoa bilatu</button>
     </form>
     <!--
