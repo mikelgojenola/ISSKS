@@ -1,7 +1,6 @@
 <?php
     include_once 'header.php';
 ?>
-
     <section class="body">
         <!--Hasierako honekin, erabiltzailea logeatzen denean agurtuko dugu -->
         <?php

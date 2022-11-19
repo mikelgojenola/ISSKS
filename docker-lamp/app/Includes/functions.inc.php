@@ -181,11 +181,6 @@ function emptyDatuakAldatu($telefonoa, $email, $pasahitza){
 
 function pasahitzaKonprobatu($conn, $izena, $pwd){
     $uidExists = userExists($conn, $izena, $izena);
-    
-    if($uidExists === false){
-        header("location: ../index.php?error=wronguser");
-        exit();
-    }
 
     $paswd = $uidExists["pasahitza"];
     $checkPwd = password_verify($pwd, $paswd);

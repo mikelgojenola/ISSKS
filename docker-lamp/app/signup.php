@@ -30,7 +30,7 @@ include_once 'header.php';
         Telefonoa(999999999): <input type="text" id="tlf" name="telefonoa" placeholder="Telefonoa sartu..." onblur="konpTelefonoa(this.value)">
         Jaiotze-data(aaaa-mm-dd): <input type="text" id="data" name="jaiotzeData" placeholder="Data...">
         email(izena@mail.ext): <input type="text" id="email" name="email" placeholder="email..." onblur="konpEmail(this.value)">
-        Pasahitza: <input type="password" id="psw" name="pasahitza" placeholder="Pasahitza sartu...">
+        Pasahitza: <input type="password" id="psw" name="pasahitza" placeholder="Pasahitza sartu..." onblur="konpPsw(this.value)">
         Pasahitza errepikatu: <input type="password" name="RPasahitza" placeholder="Pasahitza errepikatu...">
         <input type="hidden" name="csrf" value="<?php echo $token; ?>">
         <button type="submit" name="submit">Izena eman</button>

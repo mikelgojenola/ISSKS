@@ -18,7 +18,7 @@
     if($uidExists === false){
         $errorea = "wronguser";
     }
-    if(emptyInputLogin2($username, $pwd) !== FALSE) {
+    if(emptyInputLogin2($username, $pwd) === TRUE) {
         $errorea="emptyinput";
     }
     

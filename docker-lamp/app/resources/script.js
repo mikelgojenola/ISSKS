@@ -59,6 +59,17 @@ function konpEmail(email){
     }
 }
 
+function konpPsw(psw){
+	var x = document.getElementById("psw");
+	if(/^.{8,}$/.test(psw)){
+		return true;
+	} else {
+	alert("Pasahitza insegurua, 8 digitu baino luzeagoa egin mesedez")
+	x.value=""
+	return false;
+	}
+	
+}
 //jokoak
 
 function jokoaIkusi(){
