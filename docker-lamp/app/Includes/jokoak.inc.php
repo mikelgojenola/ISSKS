@@ -1,4 +1,8 @@
 <?php
+ header("X-Content-Type-Options: 'nosniff'");
+ header_remove("X-Powered-By");
+ header_remove("Server");
+ header("X-Frame-Options: 'DENY'");
 
 if(isset($_POST["jokoSartu"])){
     

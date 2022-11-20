@@ -1,4 +1,6 @@
 <?php
+ header("X-Content-Type-Options: 'nosniff'");
+ header_remove("X-Powered-By");
 session_start();
     require_once 'dbh.inc.php';
     require_once 'functions.inc.php';

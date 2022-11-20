@@ -1,15 +1,23 @@
 <?php
+ header("X-Content-Type-Options: 'nosniff'");
+ header_remove("X-Powered-By");
+ header_remove("Server");
+ header("X-Frame-Options: 'DENY'");
  session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
         <title>PHP proba</title>
+        <meta http-equiv="Content-Security-Policy"
+         content="script-src 'self';">
+         
     </head>
     <body> 
         <?php
             require_once 'Includes/dbh.inc.php';
             require_once 'Includes/functions.inc.php';
+            
         ?>
     <script src="resources/script.js" type="text/javascript"></script>
         <section class="cabezera">
