@@ -4,12 +4,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
-        <title>PHP proba</title>
+        <title>Bideojoko web sistema</title>
     </head>
-    <body>
+    <body> 
         <?php
             require_once 'Includes/dbh.inc.php';
             require_once 'Includes/functions.inc.php';
+            if(time()-$_SESSION["denb"] >= 900){
+                session_start();
+                session_unset();
+                session_destroy();
+            }
+            $_SESSION["denb"] = time();
         ?>
     <script src="resources/script.js" type="text/javascript"></script>
         <section class="cabezera">
