@@ -9,6 +9,8 @@
 <html lang="en" dir="ltr">
     <head>
         <title>Bideojoko web sistema</title>
+         <meta http-equiv="Content-Security-Policy"
+         content="script-src 'self';">
     </head>
     <body> 
         <?php
