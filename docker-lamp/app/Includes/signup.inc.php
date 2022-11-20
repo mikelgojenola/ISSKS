@@ -1,5 +1,5 @@
 <?php
-
+header_remove("X-Powered-By");
 if(isset($_POST["submit"])){
     
     $izena=$_POST["izenAbizen"];
