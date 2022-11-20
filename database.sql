@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 16-10-2022 a las 18:20:52
+-- Tiempo de generación: 20-11-2022 a las 10:27:26
 -- Versión del servidor: 10.8.2-MariaDB-1:10.8.2+maria~focal
 -- Versión de PHP: 8.0.19
 
@@ -33,8 +33,15 @@ CREATE TABLE `bezeroa` (
   `telefonoa` int(9) DEFAULT NULL,
   `jaiotzeData` date DEFAULT NULL,
   `email` varchar(80) DEFAULT NULL,
-  `pasahitza` varchar(50) NOT NULL
+  `pasahitza` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `bezeroa`
+--
+
+INSERT INTO `bezeroa` (`izenAbizen`, `NAN`, `telefonoa`, `jaiotzeData`, `email`, `pasahitza`) VALUES
+('ander', '12345678-Z', 222333444, '2000-09-23', 'ander@gmail.com', '$2y$10$d6kfKFWFcdHptwdiRPhTV.TghZwYhblu9HGmCTPKsg0do7CGOGFum');
 
 -- --------------------------------------------------------
 
@@ -46,6 +53,13 @@ CREATE TABLE `gustoko` (
   `bezeroIzen` varchar(128) NOT NULL,
   `jokoIzen` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `gustoko`
+--
+
+INSERT INTO `gustoko` (`bezeroIzen`, `jokoIzen`) VALUES
+('ander', 'GTA V');
 
 -- --------------------------------------------------------
 
@@ -68,8 +82,26 @@ CREATE TABLE `jokoa` (
 INSERT INTO `jokoa` (`izena`, `pegi`, `info`, `prezioa`, `jaurtiData`) VALUES
 ('Bloodborne', 16, 'Bloodborne es un videojuego de rol de acción dirigido por Hidetaka Miyazaki, desarrollado por From Software y JapanStudio', '29,99', '2015-01-09'),
 ('GTA V', 18, 'Grand Theft Auto V es un videojuego de acción-aventura de mundo abierto desarrollado por el estudio Rockstar North y distribuido por Rockstar Games', '19,99', '2014-10-10'),
+('Inscryption', 16, 'Es un juego de construcción de mazos y terror psicológico desarrollado por Daniel Mullins y distribuido por Devolver Digital', '18.99', '2020-07-10'),
 ('Minecraft', 3, 'Minecraft es un videojuego de construcción de tipo «mundo abierto» o sandbox creado originalmente por el sueco Markus Persson, ​ y posteriormente desarrollado por Mojang Studios', '29,99', '2011-08-04'),
 ('Overwatch', 12, 'Overwatch es un juego de acción en equipo gratuito ambientado en un futuro optimista en el que todas las partidas presentan una refriega definitiva 5c5.', '12,99', '2015-12-23');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `log`
+--
+
+CREATE TABLE `log` (
+  `id` int(11) NOT NULL,
+  `erabiltzailea` varchar(128) DEFAULT NULL,
+  `pasahitza` varchar(128) DEFAULT NULL,
+  `errorea` varchar(128) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `log`
+--
 
 --
 -- Índices para tablas volcadas
@@ -93,6 +125,12 @@ ALTER TABLE `gustoko`
 --
 ALTER TABLE `jokoa`
   ADD PRIMARY KEY (`izena`);
+
+--
+-- Indices de la tabla `log`
+--
+ALTER TABLE `log`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Restricciones para tablas volcadas
